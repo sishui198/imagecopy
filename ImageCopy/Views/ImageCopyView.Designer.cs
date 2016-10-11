@@ -38,15 +38,19 @@
             this.folderBrowserDialog1 = new System.Windows.Forms.FolderBrowserDialog();
             this.lbl_Info = new DevExpress.XtraEditors.LabelControl();
             this.mvvmContext1 = new DevExpress.Utils.MVVM.MVVMContext(this.components);
+            this.chk_Rename = new DevExpress.XtraEditors.CheckEdit();
+            this.txt_Prefix = new DevExpress.XtraEditors.TextEdit();
             ((System.ComponentModel.ISupportInitialize)(this.be_Target.Properties)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.be_Source.Properties)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.mvvmContext1)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.chk_Rename.Properties)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.txt_Prefix.Properties)).BeginInit();
             this.SuspendLayout();
             // 
             // btn_Cencel
             // 
             this.btn_Cencel.DialogResult = System.Windows.Forms.DialogResult.Cancel;
-            this.btn_Cencel.Location = new System.Drawing.Point(219, 87);
+            this.btn_Cencel.Location = new System.Drawing.Point(236, 121);
             this.btn_Cencel.Name = "btn_Cencel";
             this.btn_Cencel.Size = new System.Drawing.Size(75, 23);
             this.btn_Cencel.TabIndex = 12;
@@ -54,7 +58,7 @@
             // 
             // btn_Do
             // 
-            this.btn_Do.Location = new System.Drawing.Point(113, 87);
+            this.btn_Do.Location = new System.Drawing.Point(130, 121);
             this.btn_Do.Name = "btn_Do";
             this.btn_Do.Size = new System.Drawing.Size(75, 23);
             this.btn_Do.TabIndex = 11;
@@ -114,10 +118,28 @@
             this.mvvmContext1.ContainerControl = this;
             this.mvvmContext1.ViewModelType = typeof(ImageCopy.ViewModels.ImageCopyViewModel);
             // 
+            // chk_Rename
+            // 
+            this.chk_Rename.Location = new System.Drawing.Point(113, 82);
+            this.chk_Rename.Name = "chk_Rename";
+            this.chk_Rename.Properties.AutoWidth = true;
+            this.chk_Rename.Properties.Caption = "照片批量重命名    前缀：";
+            this.chk_Rename.Size = new System.Drawing.Size(158, 19);
+            this.chk_Rename.TabIndex = 14;
+            // 
+            // txt_Prefix
+            // 
+            this.txt_Prefix.Location = new System.Drawing.Point(277, 82);
+            this.txt_Prefix.Name = "txt_Prefix";
+            this.txt_Prefix.Size = new System.Drawing.Size(100, 20);
+            this.txt_Prefix.TabIndex = 15;
+            // 
             // ImageCopyView
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(7F, 14F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
+            this.Controls.Add(this.txt_Prefix);
+            this.Controls.Add(this.chk_Rename);
             this.Controls.Add(this.lbl_Info);
             this.Controls.Add(this.btn_Cencel);
             this.Controls.Add(this.btn_Do);
@@ -130,6 +152,8 @@
             ((System.ComponentModel.ISupportInitialize)(this.be_Target.Properties)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.be_Source.Properties)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.mvvmContext1)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.chk_Rename.Properties)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.txt_Prefix.Properties)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -145,5 +169,7 @@
         private DevExpress.XtraEditors.ButtonEdit be_Source;
         private System.Windows.Forms.FolderBrowserDialog folderBrowserDialog1;
         private DevExpress.XtraEditors.LabelControl lbl_Info;
+        private DevExpress.XtraEditors.TextEdit txt_Prefix;
+        private DevExpress.XtraEditors.CheckEdit chk_Rename;
     }
 }
