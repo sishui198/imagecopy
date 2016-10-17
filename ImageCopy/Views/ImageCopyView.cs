@@ -7,6 +7,7 @@ using System.Text;
 using System.Linq;
 using System.Windows.Forms;
 using DevExpress.XtraEditors;
+using ImageCopy.ViewModels;
 
 namespace ImageCopy.Views
 {
@@ -15,6 +16,19 @@ namespace ImageCopy.Views
         public ImageCopyView()
         {
             InitializeComponent();
+
+            if (!DesignMode)
+                InitializeNavigation();
+        }
+
+        private void InitializeNavigation()
+        {
+            var fluentAPI = mvvmContext1.OfType<ImageCopyViewModel>();
+            fluentAPI.SetTrigger(x => x.IsRename, (isRename) =>
+               {
+                   this.chk_Rename.Checked = isRename;
+                   this.txt_Prefix.Enabled = isRename;
+               });
         }
 
         private void be_Source_ButtonClick(object sender, DevExpress.XtraEditors.Controls.ButtonPressedEventArgs e)
