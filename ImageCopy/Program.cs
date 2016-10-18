@@ -22,6 +22,11 @@ namespace ImageCopy
             BonusSkins.Register();
             SkinManager.EnableFormSkins();
             UserLookAndFeel.Default.SetSkinStyle("DevExpress Style");
+
+            System.Globalization.CultureInfo culture = System.Globalization.CultureInfo.CreateSpecificCulture("zh-CN");
+            System.Threading.Thread.CurrentThread.CurrentUICulture = culture;
+            System.Threading.Thread.CurrentThread.CurrentCulture = culture;
+
             Application.Run(new MainForm());
         }
     }

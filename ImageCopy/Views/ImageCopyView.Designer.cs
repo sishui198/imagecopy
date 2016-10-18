@@ -37,14 +37,14 @@
             this.be_Source = new DevExpress.XtraEditors.ButtonEdit();
             this.folderBrowserDialog1 = new System.Windows.Forms.FolderBrowserDialog();
             this.lbl_Info = new DevExpress.XtraEditors.LabelControl();
-            this.mvvmContext1 = new DevExpress.Utils.MVVM.MVVMContext(this.components);
             this.chk_Rename = new DevExpress.XtraEditors.CheckEdit();
             this.txt_Prefix = new DevExpress.XtraEditors.TextEdit();
+            this.mvvmContext1 = new DevExpress.Utils.MVVM.MVVMContext(this.components);
             ((System.ComponentModel.ISupportInitialize)(this.be_Target.Properties)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.be_Source.Properties)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.mvvmContext1)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.chk_Rename.Properties)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.txt_Prefix.Properties)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.mvvmContext1)).BeginInit();
             this.SuspendLayout();
             // 
             // btn_Cencel
@@ -107,17 +107,6 @@
             this.lbl_Info.Size = new System.Drawing.Size(0, 14);
             this.lbl_Info.TabIndex = 13;
             // 
-            // mvvmContext1
-            // 
-            this.mvvmContext1.BindingExpressions.AddRange(new DevExpress.Utils.MVVM.BindingExpression[] {
-            DevExpress.Utils.MVVM.BindingExpression.CreatePropertyBinding(typeof(ImageCopy.ViewModels.ImageCopyViewModel), "Source", this.be_Source, "Text"),
-            DevExpress.Utils.MVVM.BindingExpression.CreateCommandBinding(typeof(ImageCopy.ViewModels.ImageCopyViewModel), "AsyncImageCopy", this.btn_Do),
-            DevExpress.Utils.MVVM.BindingExpression.CreateCancelCommandBinding(typeof(ImageCopy.ViewModels.ImageCopyViewModel), "AsyncImageCopy", this.btn_Cencel),
-            DevExpress.Utils.MVVM.BindingExpression.CreatePropertyBinding(typeof(ImageCopy.ViewModels.ImageCopyViewModel), "Progress", this.lbl_Info, "Text"),
-            DevExpress.Utils.MVVM.BindingExpression.CreatePropertyBinding(typeof(ImageCopy.ViewModels.ImageCopyViewModel), "Target", this.be_Target, "Text")});
-            this.mvvmContext1.ContainerControl = this;
-            this.mvvmContext1.ViewModelType = typeof(ImageCopy.ViewModels.ImageCopyViewModel);
-            // 
             // chk_Rename
             // 
             this.chk_Rename.Location = new System.Drawing.Point(113, 82);
@@ -133,6 +122,18 @@
             this.txt_Prefix.Name = "txt_Prefix";
             this.txt_Prefix.Size = new System.Drawing.Size(100, 20);
             this.txt_Prefix.TabIndex = 15;
+            // 
+            // mvvmContext1
+            // 
+            this.mvvmContext1.BindingExpressions.AddRange(new DevExpress.Utils.MVVM.BindingExpression[] {
+            DevExpress.Utils.MVVM.BindingExpression.CreatePropertyBinding(typeof(ImageCopy.ViewModels.ImageCopyViewModel), "Source", this.be_Source, "Text"),
+            DevExpress.Utils.MVVM.BindingExpression.CreateCommandBinding(typeof(ImageCopy.ViewModels.ImageCopyViewModel), "AsyncImageCopy", this.btn_Do),
+            DevExpress.Utils.MVVM.BindingExpression.CreateCancelCommandBinding(typeof(ImageCopy.ViewModels.ImageCopyViewModel), "AsyncImageCopy", this.btn_Cencel),
+            DevExpress.Utils.MVVM.BindingExpression.CreatePropertyBinding(typeof(ImageCopy.ViewModels.ImageCopyViewModel), "Progress", this.lbl_Info, "Text"),
+            DevExpress.Utils.MVVM.BindingExpression.CreatePropertyBinding(typeof(ImageCopy.ViewModels.ImageCopyViewModel), "Target", this.be_Target, "Text"),
+            DevExpress.Utils.MVVM.BindingExpression.CreatePropertyBinding(typeof(ImageCopy.ViewModels.ImageCopyViewModel), "Prefix", this.txt_Prefix, "Text")});
+            this.mvvmContext1.ContainerControl = this;
+            this.mvvmContext1.ViewModelType = typeof(ImageCopy.ViewModels.ImageCopyViewModel);
             // 
             // ImageCopyView
             // 
@@ -151,9 +152,9 @@
             this.Size = new System.Drawing.Size(440, 172);
             ((System.ComponentModel.ISupportInitialize)(this.be_Target.Properties)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.be_Source.Properties)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.mvvmContext1)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.chk_Rename.Properties)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.txt_Prefix.Properties)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.mvvmContext1)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
 

@@ -16,6 +16,8 @@ namespace ImageCopy.ViewModels
         public virtual string Target { get; set; }
         public virtual bool IsRename { get; set; }
 
+        public virtual string Prefix { get; set; }
+
         public Task AsyncImageCopy()
         {
             
