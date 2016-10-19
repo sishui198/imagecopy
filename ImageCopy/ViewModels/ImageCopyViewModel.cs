@@ -6,6 +6,7 @@ using DevExpress.Mvvm.POCO;
 using System.IO;
 using System.Drawing;
 using System.Text;
+using System.Windows.Forms;
 
 namespace ImageCopy.ViewModels
 {
@@ -15,8 +16,25 @@ namespace ImageCopy.ViewModels
         public virtual string Source { get; set; }
         public virtual string Target { get; set; }
         public virtual bool IsRename { get; set; }
-
         public virtual string Prefix { get; set; }
+
+        public virtual void SelectSource()
+        {
+            FolderBrowserDialog fbdlg = new FolderBrowserDialog();
+            if (fbdlg.ShowDialog() == DialogResult.OK)
+            {
+                Source = fbdlg.SelectedPath;
+            }
+        }
+
+        public virtual void SetTarget()
+        {
+            FolderBrowserDialog fbdlg = new FolderBrowserDialog();
+            if (fbdlg.ShowDialog() == DialogResult.OK)
+            {
+                Target = fbdlg.SelectedPath;
+            }
+        }
 
         public Task AsyncImageCopy()
         {

@@ -35,10 +35,10 @@
             this.labelControl1 = new DevExpress.XtraEditors.LabelControl();
             this.be_Target = new DevExpress.XtraEditors.ButtonEdit();
             this.be_Source = new DevExpress.XtraEditors.ButtonEdit();
-            this.folderBrowserDialog1 = new System.Windows.Forms.FolderBrowserDialog();
             this.lbl_Info = new DevExpress.XtraEditors.LabelControl();
             this.chk_Rename = new DevExpress.XtraEditors.CheckEdit();
             this.txt_Prefix = new DevExpress.XtraEditors.TextEdit();
+            this.labelControl3 = new DevExpress.XtraEditors.LabelControl();
             this.mvvmContext1 = new DevExpress.Utils.MVVM.MVVMContext(this.components);
             ((System.ComponentModel.ISupportInitialize)(this.be_Target.Properties)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.be_Source.Properties)).BeginInit();
@@ -53,7 +53,7 @@
             this.btn_Cencel.Location = new System.Drawing.Point(236, 121);
             this.btn_Cencel.Name = "btn_Cencel";
             this.btn_Cencel.Size = new System.Drawing.Size(75, 23);
-            this.btn_Cencel.TabIndex = 12;
+            this.btn_Cencel.TabIndex = 8;
             this.btn_Cencel.Text = "取消";
             // 
             // btn_Do
@@ -61,7 +61,7 @@
             this.btn_Do.Location = new System.Drawing.Point(130, 121);
             this.btn_Do.Name = "btn_Do";
             this.btn_Do.Size = new System.Drawing.Size(75, 23);
-            this.btn_Do.TabIndex = 11;
+            this.btn_Do.TabIndex = 7;
             this.btn_Do.Text = "执行";
             // 
             // labelControl2
@@ -69,7 +69,7 @@
             this.labelControl2.Location = new System.Drawing.Point(23, 50);
             this.labelControl2.Name = "labelControl2";
             this.labelControl2.Size = new System.Drawing.Size(84, 14);
-            this.labelControl2.TabIndex = 9;
+            this.labelControl2.TabIndex = 2;
             this.labelControl2.Text = "目标保存目录：";
             // 
             // labelControl1
@@ -77,7 +77,7 @@
             this.labelControl1.Location = new System.Drawing.Point(35, 24);
             this.labelControl1.Name = "labelControl1";
             this.labelControl1.Size = new System.Drawing.Size(72, 14);
-            this.labelControl1.TabIndex = 7;
+            this.labelControl1.TabIndex = 0;
             this.labelControl1.Text = "相片源目录：";
             // 
             // be_Target
@@ -87,8 +87,7 @@
             this.be_Target.Properties.Buttons.AddRange(new DevExpress.XtraEditors.Controls.EditorButton[] {
             new DevExpress.XtraEditors.Controls.EditorButton()});
             this.be_Target.Size = new System.Drawing.Size(289, 20);
-            this.be_Target.TabIndex = 10;
-            this.be_Target.ButtonClick += new DevExpress.XtraEditors.Controls.ButtonPressedEventHandler(this.be_Target_ButtonClick);
+            this.be_Target.TabIndex = 3;
             // 
             // be_Source
             // 
@@ -97,31 +96,38 @@
             this.be_Source.Properties.Buttons.AddRange(new DevExpress.XtraEditors.Controls.EditorButton[] {
             new DevExpress.XtraEditors.Controls.EditorButton()});
             this.be_Source.Size = new System.Drawing.Size(289, 20);
-            this.be_Source.TabIndex = 8;
-            this.be_Source.ButtonClick += new DevExpress.XtraEditors.Controls.ButtonPressedEventHandler(this.be_Source_ButtonClick);
+            this.be_Source.TabIndex = 1;
             // 
             // lbl_Info
             // 
             this.lbl_Info.Location = new System.Drawing.Point(23, 136);
             this.lbl_Info.Name = "lbl_Info";
             this.lbl_Info.Size = new System.Drawing.Size(0, 14);
-            this.lbl_Info.TabIndex = 13;
+            this.lbl_Info.TabIndex = 9;
             // 
             // chk_Rename
             // 
-            this.chk_Rename.Location = new System.Drawing.Point(113, 82);
+            this.chk_Rename.Location = new System.Drawing.Point(113, 83);
             this.chk_Rename.Name = "chk_Rename";
             this.chk_Rename.Properties.AutoWidth = true;
-            this.chk_Rename.Properties.Caption = "照片批量重命名    前缀：";
-            this.chk_Rename.Size = new System.Drawing.Size(158, 19);
-            this.chk_Rename.TabIndex = 14;
+            this.chk_Rename.Properties.Caption = "照片批量重命名";
+            this.chk_Rename.Size = new System.Drawing.Size(106, 19);
+            this.chk_Rename.TabIndex = 4;
             // 
             // txt_Prefix
             // 
             this.txt_Prefix.Location = new System.Drawing.Point(277, 82);
             this.txt_Prefix.Name = "txt_Prefix";
             this.txt_Prefix.Size = new System.Drawing.Size(100, 20);
-            this.txt_Prefix.TabIndex = 15;
+            this.txt_Prefix.TabIndex = 6;
+            // 
+            // labelControl3
+            // 
+            this.labelControl3.Location = new System.Drawing.Point(235, 85);
+            this.labelControl3.Name = "labelControl3";
+            this.labelControl3.Size = new System.Drawing.Size(36, 14);
+            this.labelControl3.TabIndex = 5;
+            this.labelControl3.Text = "前缀：";
             // 
             // mvvmContext1
             // 
@@ -130,15 +136,18 @@
             DevExpress.Utils.MVVM.BindingExpression.CreateCommandBinding(typeof(ImageCopy.ViewModels.ImageCopyViewModel), "AsyncImageCopy", this.btn_Do),
             DevExpress.Utils.MVVM.BindingExpression.CreateCancelCommandBinding(typeof(ImageCopy.ViewModels.ImageCopyViewModel), "AsyncImageCopy", this.btn_Cencel),
             DevExpress.Utils.MVVM.BindingExpression.CreatePropertyBinding(typeof(ImageCopy.ViewModels.ImageCopyViewModel), "Progress", this.lbl_Info, "Text"),
-            DevExpress.Utils.MVVM.BindingExpression.CreatePropertyBinding(typeof(ImageCopy.ViewModels.ImageCopyViewModel), "Target", this.be_Target, "Text"),
-            DevExpress.Utils.MVVM.BindingExpression.CreatePropertyBinding(typeof(ImageCopy.ViewModels.ImageCopyViewModel), "Prefix", this.txt_Prefix, "Text")});
+            DevExpress.Utils.MVVM.BindingExpression.CreatePropertyBinding(typeof(ImageCopy.ViewModels.ImageCopyViewModel), "Target", this.be_Target, "Text")});
             this.mvvmContext1.ContainerControl = this;
+            this.mvvmContext1.RegistrationExpressions.AddRange(new DevExpress.Utils.MVVM.RegistrationExpression[] {
+            DevExpress.Utils.MVVM.RegistrationExpression.RegisterEventToCommand(typeof(ImageCopy.ViewModels.ImageCopyViewModel), "ButtonClick", this.be_Source, "SelectSource"),
+            DevExpress.Utils.MVVM.RegistrationExpression.RegisterEventToCommand(typeof(ImageCopy.ViewModels.ImageCopyViewModel), "ButtonClick", this.be_Target, "SetTarget")});
             this.mvvmContext1.ViewModelType = typeof(ImageCopy.ViewModels.ImageCopyViewModel);
             // 
             // ImageCopyView
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(7F, 14F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
+            this.Controls.Add(this.labelControl3);
             this.Controls.Add(this.txt_Prefix);
             this.Controls.Add(this.chk_Rename);
             this.Controls.Add(this.lbl_Info);
@@ -168,9 +177,9 @@
         private DevExpress.XtraEditors.LabelControl labelControl1;
         private DevExpress.XtraEditors.ButtonEdit be_Target;
         private DevExpress.XtraEditors.ButtonEdit be_Source;
-        private System.Windows.Forms.FolderBrowserDialog folderBrowserDialog1;
         private DevExpress.XtraEditors.LabelControl lbl_Info;
         private DevExpress.XtraEditors.TextEdit txt_Prefix;
         private DevExpress.XtraEditors.CheckEdit chk_Rename;
+        private DevExpress.XtraEditors.LabelControl labelControl3;
     }
 }

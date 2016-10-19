@@ -24,27 +24,14 @@ namespace ImageCopy.Views
         private void InitializeNavigation()
         {
             var fluentAPI = mvvmContext1.OfType<ImageCopyViewModel>();
-            fluentAPI.SetTrigger(x => x.IsRename, (isRename) =>
-               {
-                   this.chk_Rename.Checked = isRename;
-                   this.txt_Prefix.Enabled = isRename;
-               });
-        }
-
-        private void be_Source_ButtonClick(object sender, DevExpress.XtraEditors.Controls.ButtonPressedEventArgs e)
-        {
-            if (folderBrowserDialog1.ShowDialog(this) == DialogResult.OK)
-            {
-                this.be_Source.EditValue = this.folderBrowserDialog1.SelectedPath;
-            }
-        }
-
-        private void be_Target_ButtonClick(object sender, DevExpress.XtraEditors.Controls.ButtonPressedEventArgs e)
-        {
-            if (folderBrowserDialog1.ShowDialog(this) == DialogResult.OK)
-            {
-                this.be_Target.EditValue = this.folderBrowserDialog1.SelectedPath;
-            }
+            //fluentAPI.SetTrigger(x => x.IsRename, (isRename) =>
+            //   {
+            //       this.chk_Rename.Checked = isRename;
+            //       this.txt_Prefix.Enabled = isRename;
+            //       this.txt_Prefix.Text = isRename ? "" : "N/A";
+            //   });
+            //fluentAPI.WithEvent
+            //fluentAPI.SetBinding()
         }
     }
 }
