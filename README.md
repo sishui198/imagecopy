@@ -1,2 +1,2 @@
 # imagecopy
-MVVM¡¢DevExpress¡¢WinForm¡¢C#¡¢netFx4.0
+MVVMã€DevExpressã€WinFormã€C#ã€netFx4.0
