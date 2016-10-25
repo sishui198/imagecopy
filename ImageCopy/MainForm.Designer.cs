@@ -28,24 +28,27 @@
         /// </summary>
         private void InitializeComponent()
         {
+            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(MainForm));
             this.imageCopyView1 = new ImageCopy.Views.ImageCopyView();
             this.SuspendLayout();
             // 
             // imageCopyView1
             // 
-            this.imageCopyView1.Location = new System.Drawing.Point(12, 12);
+            this.imageCopyView1.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.imageCopyView1.Location = new System.Drawing.Point(0, 0);
             this.imageCopyView1.Name = "imageCopyView1";
-            this.imageCopyView1.Size = new System.Drawing.Size(440, 172);
+            this.imageCopyView1.Size = new System.Drawing.Size(434, 171);
             this.imageCopyView1.TabIndex = 0;
             // 
             // MainForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(7F, 14F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(459, 203);
+            this.ClientSize = new System.Drawing.Size(434, 171);
             this.Controls.Add(this.imageCopyView1);
+            this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
             this.Name = "MainForm";
-            this.Text = "Form1";
+            this.Text = "Easy Copy Image";
             this.ResumeLayout(false);
 
         }

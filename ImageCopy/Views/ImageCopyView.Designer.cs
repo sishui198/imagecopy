@@ -86,6 +86,7 @@
             this.be_Target.Name = "be_Target";
             this.be_Target.Properties.Buttons.AddRange(new DevExpress.XtraEditors.Controls.EditorButton[] {
             new DevExpress.XtraEditors.Controls.EditorButton()});
+            this.be_Target.Properties.ReadOnly = true;
             this.be_Target.Size = new System.Drawing.Size(289, 20);
             this.be_Target.TabIndex = 3;
             // 
@@ -95,12 +96,13 @@
             this.be_Source.Name = "be_Source";
             this.be_Source.Properties.Buttons.AddRange(new DevExpress.XtraEditors.Controls.EditorButton[] {
             new DevExpress.XtraEditors.Controls.EditorButton()});
+            this.be_Source.Properties.ReadOnly = true;
             this.be_Source.Size = new System.Drawing.Size(289, 20);
             this.be_Source.TabIndex = 1;
             // 
             // lbl_Info
             // 
-            this.lbl_Info.Location = new System.Drawing.Point(23, 136);
+            this.lbl_Info.Location = new System.Drawing.Point(21, 151);
             this.lbl_Info.Name = "lbl_Info";
             this.lbl_Info.Size = new System.Drawing.Size(0, 14);
             this.lbl_Info.TabIndex = 9;
@@ -136,11 +138,15 @@
             DevExpress.Utils.MVVM.BindingExpression.CreateCommandBinding(typeof(ImageCopy.ViewModels.ImageCopyViewModel), "AsyncImageCopy", this.btn_Do),
             DevExpress.Utils.MVVM.BindingExpression.CreateCancelCommandBinding(typeof(ImageCopy.ViewModels.ImageCopyViewModel), "AsyncImageCopy", this.btn_Cencel),
             DevExpress.Utils.MVVM.BindingExpression.CreatePropertyBinding(typeof(ImageCopy.ViewModels.ImageCopyViewModel), "Progress", this.lbl_Info, "Text"),
-            DevExpress.Utils.MVVM.BindingExpression.CreatePropertyBinding(typeof(ImageCopy.ViewModels.ImageCopyViewModel), "Target", this.be_Target, "Text")});
+            DevExpress.Utils.MVVM.BindingExpression.CreatePropertyBinding(typeof(ImageCopy.ViewModels.ImageCopyViewModel), "Target", this.be_Target, "Text"),
+            DevExpress.Utils.MVVM.BindingExpression.CreatePropertyBinding(typeof(ImageCopy.ViewModels.ImageCopyViewModel), "Prefix", this.txt_Prefix, "Text"),
+            DevExpress.Utils.MVVM.BindingExpression.CreatePropertyBinding(typeof(ImageCopy.ViewModels.ImageCopyViewModel), "IsRename", this.chk_Rename, "Checked"),
+            DevExpress.Utils.MVVM.BindingExpression.CreatePropertyBinding(typeof(ImageCopy.ViewModels.ImageCopyViewModel), "IsRename", this.txt_Prefix, "Enabled")});
             this.mvvmContext1.ContainerControl = this;
             this.mvvmContext1.RegistrationExpressions.AddRange(new DevExpress.Utils.MVVM.RegistrationExpression[] {
             DevExpress.Utils.MVVM.RegistrationExpression.RegisterEventToCommand(typeof(ImageCopy.ViewModels.ImageCopyViewModel), "ButtonClick", this.be_Source, "SelectSource"),
-            DevExpress.Utils.MVVM.RegistrationExpression.RegisterEventToCommand(typeof(ImageCopy.ViewModels.ImageCopyViewModel), "ButtonClick", this.be_Target, "SetTarget")});
+            DevExpress.Utils.MVVM.RegistrationExpression.RegisterEventToCommand(typeof(ImageCopy.ViewModels.ImageCopyViewModel), "ButtonClick", this.be_Target, "SetTarget"),
+            DevExpress.Utils.MVVM.RegistrationExpression.RegisterMessageBoxService(null, false, DevExpress.Utils.MVVM.Services.DefaultMessageBoxServiceType.Default)});
             this.mvvmContext1.ViewModelType = typeof(ImageCopy.ViewModels.ImageCopyViewModel);
             // 
             // ImageCopyView

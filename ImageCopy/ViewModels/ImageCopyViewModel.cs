@@ -13,8 +13,16 @@ namespace ImageCopy.ViewModels
     [POCOViewModel]
     public class ImageCopyViewModel
     {
+        public ImageCopyViewModel()
+        {
+            IsRename = false;
+            Prefix = "IMG";
+        }
+
         public virtual string Source { get; set; }
         public virtual string Target { get; set; }
+
+        //[BindableProperty(OnPropertyChangedMethodName = "NotifyRenameCheckedChanged")]
         public virtual bool IsRename { get; set; }
         public virtual string Prefix { get; set; }
 
@@ -36,6 +44,21 @@ namespace ImageCopy.ViewModels
             }
         }
 
+        //protected void NotifyRenameCheckedChanged()
+        //{
+        //    this.RaisePropertyChanged(x => x.Prefix);
+        //}
+
+        //protected void OnIsRenameChanged()
+        //{
+        //    UpdatePrefixStr();
+        //}
+
+        //private void UpdatePrefixStr()
+        //{
+        //    if (!IsRename) Prefix = "N/A";
+        //}
+
         public Task AsyncImageCopy()
         {
             
@@ -46,6 +69,23 @@ namespace ImageCopy.ViewModels
                     MessageBoxService.ShowMessage("请选择源文件");
                     return;
                 }
+                if (String.IsNullOrEmpty(Target))
+                {
+                    MessageBoxService.ShowMessage("请确定目标路径");
+                    return;
+                }
+
+                if (!Directory.Exists(Source))
+                {
+                    MessageBoxService.ShowMessage("源路径不合法");
+                    return;
+                }
+                if (!Directory.Exists(Target))
+                {
+                    MessageBoxService.ShowMessage("目标路径不合法");
+                    return;
+                }
+
                 var asyncCommand = this.GetAsyncCommand(x => x.AsyncImageCopy());
                 FileInfo[] files = new DirectoryInfo(Source).GetFiles("*.JPG");
                 for (int i = 0; i < files.Length; i++)
@@ -69,6 +109,14 @@ namespace ImageCopy.ViewModels
                     if (takedatetime != "未获取")
                     {
                         takedatetime = takedatetime.Split(' ')[0].Replace(":","").Replace("/", "");
+                        if (takedatetime.IndexOf(":") >=0)
+                        {
+                            takedatetime = takedatetime.Replace(":", "");
+                        }
+                        if (takedatetime.IndexOf("/") >= 0)
+                        {
+                            takedatetime = takedatetime.Replace("/", "");
+                        }
                         //takedatetime = takedatetime.Trim('\0');
                         //DateTime dt = Convert.ToDateTime(takedatetime);
                         //takedatetime = dt.ToString("yyyyMMddHHmmss");
@@ -77,10 +125,16 @@ namespace ImageCopy.ViewModels
                     if (!Directory.Exists(Path.Combine(Target, takedatetime)))
                         Directory.CreateDirectory(Path.Combine(Target, takedatetime));
 
+                    string sourcefilename = Path.Combine(Source, files[i].Name);
+                    string targetfilename = Path.Combine(Target, takedatetime, IsRename ? String.Format("{0}_{1:D4}.jpg",Prefix,i) : files[i].Name);
+                    if (File.Exists(targetfilename))
+                    {
+                        targetfilename = Path.Combine(Target, IsRename ? String.Format("{0}_{1:D4}.jpg", Prefix, i) : files[i].Name);
+                    }
 
-                    File.Copy(Path.Combine(Source, files[i].Name), Path.Combine(Target, takedatetime, files[i].Name), true);
+                    File.Copy(sourcefilename, targetfilename, true);
                 }
-                UpdateProgressOnUIThread("完成");
+                UpdateProgressOnUIThread(String.Format("完成，总共处理了{0}个文件", files.Length));
                 if (asyncCommand.IsCancellationRequested)
                     UpdateProgressOnUIThread("用户取消");
             }                
