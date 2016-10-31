@@ -21,10 +21,19 @@ namespace ImageCopy.ViewModels
 
         public virtual string Source { get; set; }
         public virtual string Target { get; set; }
-
-        //[BindableProperty(OnPropertyChangedMethodName = "NotifyRenameCheckedChanged")]
         public virtual bool IsRename { get; set; }
         public virtual string Prefix { get; set; }
+        public virtual string Progress { get; set; }
+
+        protected IDispatcherService DispatcherService
+        {
+            get { return this.GetService<IDispatcherService>(); }
+        }
+
+        protected IMessageBoxService MessageBoxService
+        {
+            get { return this.GetService<IMessageBoxService>(); }
+        }
 
         public virtual void SelectSource()
         {
@@ -43,21 +52,6 @@ namespace ImageCopy.ViewModels
                 Target = fbdlg.SelectedPath;
             }
         }
-
-        //protected void NotifyRenameCheckedChanged()
-        //{
-        //    this.RaisePropertyChanged(x => x.Prefix);
-        //}
-
-        //protected void OnIsRenameChanged()
-        //{
-        //    UpdatePrefixStr();
-        //}
-
-        //private void UpdatePrefixStr()
-        //{
-        //    if (!IsRename) Prefix = "N/A";
-        //}
 
         public Task AsyncImageCopy()
         {
@@ -87,6 +81,7 @@ namespace ImageCopy.ViewModels
                 }
 
                 var asyncCommand = this.GetAsyncCommand(x => x.AsyncImageCopy());
+
                 FileInfo[] files = new DirectoryInfo(Source).GetFiles("*.JPG");
                 for (int i = 0; i < files.Length; i++)
                 {
@@ -139,18 +134,6 @@ namespace ImageCopy.ViewModels
                     UpdateProgressOnUIThread("用户取消");
             }                
                 );
-        }
-
-        public virtual string Progress { get; set; }
-        protected IDispatcherService DispatcherService
-        {
-            get { return this.GetService<IDispatcherService>(); }
-        }
-
-        public string Message { get; set; }
-        protected IMessageBoxService MessageBoxService
-        {
-            get { return this.GetService<IMessageBoxService>(); }
         }
 
         void UpdateProgressOnUIThread(string progress)
