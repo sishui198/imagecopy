@@ -117,15 +117,17 @@ namespace ImageCopy.ViewModels
                         //takedatetime = dt.ToString("yyyyMMddHHmmss");
                     }
 
-                    if (!Directory.Exists(Path.Combine(Target, takedatetime)))
-                        Directory.CreateDirectory(Path.Combine(Target, takedatetime));
-
                     string sourcefilename = Path.Combine(Source, files[i].Name);
                     string targetfilename = Path.Combine(Target, takedatetime, IsRename ? String.Format("{0}_{1:D4}.jpg",Prefix,i) : files[i].Name);
                     if (File.Exists(targetfilename))
                     {
-                        targetfilename = Path.Combine(Target, IsRename ? String.Format("{0}_{1:D4}.jpg", Prefix, i) : files[i].Name);
+                        takedatetime = "可能重复";
+                        targetfilename = Path.Combine(Target, takedatetime, IsRename ? String.Format("{0}_{1:D4}.jpg", Prefix, i) : files[i].Name);
                     }
+
+                    if (!Directory.Exists(Path.Combine(Target, takedatetime)))
+                        Directory.CreateDirectory(Path.Combine(Target, takedatetime));
+
 
                     File.Copy(sourcefilename, targetfilename, true);
                 }
