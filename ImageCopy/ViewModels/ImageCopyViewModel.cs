@@ -13,6 +13,9 @@ namespace ImageCopy.ViewModels
     [POCOViewModel]
     public class ImageCopyViewModel
     {
+        private const string NO_DATE_FILE_DIR_NAME = "未获取日期";
+        private const string ALREADY_EXIST_FILE_DIR_NAME = "可能重复";
+
         public ImageCopyViewModel()
         {
             IsRename = false;
@@ -55,8 +58,7 @@ namespace ImageCopy.ViewModels
 
         public Task AsyncImageCopy()
         {
-            
-            return Task.Factory.StartNew(()=>
+            return Task.Factory.StartNew(() =>
             {
                 if (String.IsNullOrEmpty(Source))
                 {
@@ -83,6 +85,7 @@ namespace ImageCopy.ViewModels
                 var asyncCommand = this.GetAsyncCommand(x => x.AsyncImageCopy());
 
                 FileInfo[] files = new DirectoryInfo(Source).GetFiles("*.JPG");
+                int z = 0;
                 for (int i = 0; i < files.Length; i++)
                 {
                     if (asyncCommand.IsCancellationRequested)
@@ -90,7 +93,7 @@ namespace ImageCopy.ViewModels
                     //File.Copy(Path.Combine(Source,files[i].Name), Path.Combine(Target, files[i].Name), true);
                     UpdateProgressOnUIThread(String.Format("正在处理“{0}”...", files[i].Name));
 
-                    string takedatetime = "未获取";
+                    string takedatetime = NO_DATE_FILE_DIR_NAME;
                     foreach (var item in Image.FromFile(Path.Combine(Source, files[i].Name)).PropertyItems)
                     {
                         if (item.Id == 0x0132)
@@ -100,11 +103,10 @@ namespace ImageCopy.ViewModels
                         }
                     }
 
-                    
-                    if (takedatetime != "未获取")
+                    if (takedatetime != NO_DATE_FILE_DIR_NAME)
                     {
-                        takedatetime = takedatetime.Split(' ')[0].Replace(":","").Replace("/", "");
-                        if (takedatetime.IndexOf(":") >=0)
+                        takedatetime = takedatetime.Split(' ')[0].Replace(":", "").Replace("/", "");
+                        if (takedatetime.IndexOf(":") >= 0)
                         {
                             takedatetime = takedatetime.Replace(":", "");
                         }
@@ -118,23 +120,45 @@ namespace ImageCopy.ViewModels
                     }
 
                     string sourcefilename = Path.Combine(Source, files[i].Name);
-                    string targetfilename = Path.Combine(Target, takedatetime, IsRename ? String.Format("{0}_{1:D4}.jpg",Prefix,i) : files[i].Name);
+                    string targetfilename = Path.Combine(Target, takedatetime, files[i].Name);
                     if (File.Exists(targetfilename))
                     {
-                        takedatetime = "可能重复";
-                        targetfilename = Path.Combine(Target, takedatetime, IsRename ? String.Format("{0}_{1:D4}.jpg", Prefix, i) : files[i].Name);
+                        takedatetime = ALREADY_EXIST_FILE_DIR_NAME;
+                        targetfilename = Path.Combine(Target, takedatetime, files[i].Name); 
                     }
 
                     if (!Directory.Exists(Path.Combine(Target, takedatetime)))
                         Directory.CreateDirectory(Path.Combine(Target, takedatetime));
 
-
                     File.Copy(sourcefilename, targetfilename, true);
+                    z++;
                 }
-                UpdateProgressOnUIThread(String.Format("完成，总共处理了{0}个文件", files.Length));
-                if (asyncCommand.IsCancellationRequested)
-                    UpdateProgressOnUIThread("用户取消");
-            }                
+
+                if (asyncCommand.IsCancellationRequested) UpdateProgressOnUIThread("用户取消");
+                // 批量重命名
+                UpdateProgressOnUIThread("正在重命名所有文件");
+                if (IsRename)
+                {
+                    DirectoryInfo drtmp = new DirectoryInfo(Target);
+                    DirectoryInfo[] dris = drtmp.GetDirectories();
+                    for (int j = 0; j < dris.Length; j++)
+                    {
+                        if (dris[j].Name == ALREADY_EXIST_FILE_DIR_NAME || dris[j].Name == NO_DATE_FILE_DIR_NAME)
+                        {
+                            continue;
+                        }
+                        FileInfo[] rmfiles = dris[j].GetFiles("*.JPG");
+                        for (int i = 0; i < rmfiles.Length; i++)
+                        {
+                            string newname = Path.Combine(dris[j].FullName, String.Format("{0}_{1:D4}.jpg", Prefix, i));
+                            rmfiles[i].MoveTo(newname);
+                        }
+                    }
+                }
+
+                UpdateProgressOnUIThread(String.Format("完成，总共处理了{0}个文件", z));
+                if (asyncCommand.IsCancellationRequested) UpdateProgressOnUIThread("用户取消");
+            }
                 );
         }
 
