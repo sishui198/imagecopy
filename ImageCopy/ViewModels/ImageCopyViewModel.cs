@@ -14,7 +14,7 @@ namespace ImageCopy.ViewModels
     public class ImageCopyViewModel
     {
         private const string NO_DATE_FILE_DIR_NAME = "未获取日期";
-        private const string ALREADY_EXIST_FILE_DIR_NAME = "可能重复";
+        private const string ALREADY_EXIST_FILE_DIR_NAME = "已经存在";
 
         public ImageCopyViewModel()
         {
@@ -123,8 +123,15 @@ namespace ImageCopy.ViewModels
                     string targetfilename = Path.Combine(Target, takedatetime, files[i].Name);
                     if (File.Exists(targetfilename))
                     {
-                        takedatetime = ALREADY_EXIST_FILE_DIR_NAME;
-                        targetfilename = Path.Combine(Target, takedatetime, files[i].Name); 
+                        if (IsSameImage(new Bitmap(Image.FromFile(sourcefilename)), new Bitmap(Image.FromFile(targetfilename))))
+                        {
+                            takedatetime = ALREADY_EXIST_FILE_DIR_NAME;
+                            targetfilename = Path.Combine(Target, takedatetime, files[i].Name);
+                        }
+                        else
+                        {
+                            targetfilename = Path.Combine(Target, takedatetime, $"{files[i].Name}_{files[i].Length.ToString()}");
+                        }
                     }
 
                     if (!Directory.Exists(Path.Combine(Target, takedatetime)))
@@ -160,6 +167,40 @@ namespace ImageCopy.ViewModels
                 if (asyncCommand.IsCancellationRequested) UpdateProgressOnUIThread("用户取消");
             }
                 );
+        }
+
+        private bool IsSameImage(Bitmap firstImage, Bitmap secondImage)
+        {
+            bool flag = true;
+            string firstPixel;
+            string secondPixel;
+            if (firstImage.Width == secondImage.Width && firstImage.Height == secondImage.Height)
+            {
+                for (int i = 0; i < firstImage.Width; i++)
+                {
+                    for (int j = 0; j < firstImage.Height; j++)
+                    {
+                        firstPixel = firstImage.GetPixel(i, j).ToString();
+                        secondPixel = secondImage.GetPixel(i, j).ToString();
+                        if (firstPixel != secondPixel)
+                        {
+                            flag = false; break;
+                        }
+                    }
+                }
+                if (flag == false)
+                {
+                    return false;
+                }
+                else
+                {
+                    return true;
+                }
+            }
+            else
+            {
+                return false;
+            }
         }
 
         void UpdateProgressOnUIThread(string progress)
